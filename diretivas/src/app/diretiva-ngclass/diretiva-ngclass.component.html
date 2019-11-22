@@ -1,0 +1,8 @@
+<h1>
+    <i class="far" [class.fa-star]="meuFavorito" [style.display]="meuFavorito ? block : none" (click)="favoritarEstrela()"></i>
+    <i class="fas" [class.fa-star]="!meuFavorito" [style.display]="!meuFavorito ? block : none" (click)="favoritarEstrela()"></i>
+</h1>
+
+<h1>
+    <i [ngClass]="!meuFavorito ? estrelaAberta : estrelaFechada" (click)="favoritarEstrela()"></i>
+</h1>

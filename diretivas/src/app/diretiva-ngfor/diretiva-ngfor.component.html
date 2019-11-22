@@ -1,0 +1,8 @@
+<h5>Diretiva ngFOR</h5>
+
+<ul>
+    <!-- Index aqui é o index como se fosse do FOR, não precisa declarar -->
+    <li *ngFor="let curso of cursos, let i=index">
+        {{ i+1 }} - {{ curso }}
+    </li>
+</ul>

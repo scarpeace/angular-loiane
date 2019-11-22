@@ -1,0 +1,13 @@
+<p>Detalhes do Aluno</p>
+
+<ul class="collection with-header">
+    <li class="collection-header">
+        <h4>{{ aluno.nome }}</h4>
+    </li>
+    <li class="collection-item">ID do Aluno: {{ aluno.id }}</li>
+    <li class="collection-item">Email: {{ aluno.email }}</li>
+</ul>
+
+<button class="btn waves-effect waves-light" (click)="editarContato()">Editar
+  <i class="material-icons right">cached</i>
+</button>

@@ -1,0 +1,21 @@
+<h5>Editar/Novo</h5>
+
+<div class="row">
+    <div class="col s12">
+        <div class="row">
+            <div class="input-field col s6">
+                <input [(ngModel)]="aluno.id" disabled id="disabled" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input [(ngModel)]="aluno.nome" placeholder="Nome" id="first_name" type="text" class="validate">
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input [(ngModel)]="aluno.email" placeholder="Email" id="email" type="email" class="validate">
+            </div>
+        </div>
+    </div>
+</div>

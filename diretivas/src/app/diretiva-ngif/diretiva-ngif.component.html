@@ -1,0 +1,30 @@
+<h5>*ngIF</h5>
+<div *ngIf="cursos.length > 0">Aqui vão os cursos</div>
+<div *ngIf="cursos.length == 0">Não existem cursos para serem listados</div>
+
+<div *ngIf="!mostrarCursos">A variável "Mostrar Cursos" é falsa</div>
+<div *ngIf="mostrarCursos">A variável "Mostrar Cursos" é verdadeira</div>
+<br>
+
+<button (click)="onMostrarCursos()">Mostrar ou esconder cursos</button>
+
+
+<!-- Propriedade Hidden -->
+<h5>Hidden como Alternativa</h5>
+
+<div [hidden]="!mostrarCursos">
+    Lista de Curso Aqui
+</div>
+
+<div [hidden]="mostrarCursos">
+    Não existem Cursos para serem mostrados.
+</div>
+
+<br>
+<br>
+
+<h5>Removendo o * e usando template</h5>
+
+<div *ngIf="mostrarCursos">
+    Lista de cursos aqui
+</div>

@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+    <div class="navbar-nav">
+
+        <a class=" nav-item nav-link" [class.active]="aba == 'home'" (click)="aba = 'home'">Home</a>
+
+        <a class="nav-item nav-link" [class.active]="aba == 'features'" (click)="aba = 'features'">Features</a>
+
+        <a class="nav-item nav-link" [class.active]="aba == 'pricing'" (click)="aba = 'pricing'">Pricing</a>
+
+    </div>
+</nav>
+
+
+<div class="container" [ngSwitch]="aba">
+    <p *ngSwitchCase="'features'">Modo Features Ativado</p>
+    <p *ngSwitchCase="'pricing'">Modo Pricing Ativado</p>
+    <p *ngSwitchDefault>Modo Home Ativado</p>
+</div>

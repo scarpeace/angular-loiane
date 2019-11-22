@@ -1,0 +1,19 @@
+<nav>
+    <div class="nav-wrapper">
+        <a [routerLink]="['']" routerLinkActive="router-link-active" class="brand-logo left">Rota NG2</a>
+        <ul id="nav" class="right">
+            <li routerLinkActive="active"><a [routerLink]="['/login']">Login</a></li>
+            <li routerLinkActive="active"><a [routerLink]="['/cursos']" [queryParams]="{pagina:1}">Cursos</a></li>
+            <!-- <li routerLinkActive="active"><a [routerLink]="['/curso', idCurso.value]">Curso ID</a></li> -->
+            <li routerLinkActive="active"><a [routerLink]="['/alunos']">Alunos</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- <p>Entre com o ID do Curso</p>
+    <input #idCurso> -->
+    <router-outlet></router-outlet>
+</div>
+<br>
+<hr>

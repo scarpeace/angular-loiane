@@ -1,0 +1,26 @@
+<p fundoAmarelo>Texto com fundo amarelo</p>
+
+<button fundoAmarelo>Botão com fundo amarelo</button>
+<br />
+<br />
+
+<p hightlightMouse>
+    Texto com highlight quando eu passo o mouse.
+</p>
+<br />
+<br />
+
+<p [highlight]="'yellow'" [highlightColor]="'#666'">
+    Texto com highlight com cores customizadas.
+</p>
+<hr />
+<div *ngElse="mostrarCursos">A variável "Mostrar Cursos" é falsa</div>
+<div *ngIf="mostrarCursos">A variável "Mostrar Cursos" é verdadeira</div>
+<br />
+
+<button (click)="onMostrarCursos()">Mostrar ou esconder cursos</button>
+<br>
+<br>
+
+<!-- Desestruturação do * -->
+<ng-template [ngElse]="mostrarCursos"></ng-template>
