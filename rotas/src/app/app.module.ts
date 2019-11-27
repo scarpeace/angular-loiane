@@ -6,7 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import {CursosService} from "./cursos/cursos.service";
+import { AuthService } from './login/auth.service';
+import { AuthGuard } from './guards/auth-guard.guard';
+import { CursosGuard } from './guards/cursos.guard';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,7 @@ import {CursosService} from "./cursos/cursos.service";
     FormsModule,
     AppRoutingModule,
   ],
-  providers: [CursosService],
+  providers: [AuthService, AuthGuard, CursosGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
