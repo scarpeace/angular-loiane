@@ -1,0 +1,14 @@
+<div class="jumbotron jumbotron-fluid p-5 m-5" *ngIf="form">
+  <h3>Detalhes do Form</h3>
+  <pre>
+    Form Válido: {{ form.valid }}
+  </pre>
+  <hr>
+  <pre>
+    Form Submetido: {{ form.submitted }}
+  </pre>
+  <hr>
+  <pre>
+    Form Valores: {{ form.value | json }}
+  </pre>
+</div>
