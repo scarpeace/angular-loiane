@@ -1,1 +1,56 @@
-<p>data-form works!</p>
+<form class="form-horizontal m-4 p-4" (ngSubmit)="onSubmit()" [formGroup]="formulario" autocomplete="off">
+  <div class="jumbotron jumbotron-fluid p-5">
+
+    <!-- Nome e Email -->
+    <div class="mt-3 form-group">
+      <div class="col-sm-12">
+        <label for="name">Name</label>
+      </div>
+      <div class="col-sm-12">
+        <input
+          [ngClass]="aplicaCssErro('name')"
+          type="text"
+          class="form-control"
+          id="name"
+          formControlName="name"
+          required
+        />
+      </div>
+      <app-form-error-message [mostrarErro]="verificaValidTouched('name')" msgErro="Nome é Obrigatório"></app-form-error-message>
+    </div>
+
+      <div class="form-group mt-3">
+        <div class="col-sm-12">
+          <label for="email">Email</label>
+        </div>
+        <div class="col-sm-12">
+          <input
+            class="form-control"
+            [ngClass]="aplicaCssErro('email')"
+            type="text"
+            id="email"
+            formControlName="email"
+            required
+          />
+        </div>
+        <app-form-error-message [mostrarErro]="verificaValidTouched('email')" msgErro="Email é Obrigatório"></app-form-error-message>
+        <app-form-error-message [mostrarErro]="verificaEmailValido('email')" msgErro="Email Invalido"></app-form-error-message>
+
+      </div>
+
+      <div class="col-sm-6 mt-3">
+        <button type="submit" class="btn btn-primary">
+          Send
+        </button>
+
+        <button (click)="resetarForm()"class="btn btn-alert ml-4">
+          Reset
+        </button>
+      </div>
+
+
+
+    </div>
+   <app-form-debug [form]="formulario"></app-form-debug>
+
+</form>
