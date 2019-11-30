@@ -13,7 +13,6 @@ export class FormDebugComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.form)
   }
 
 }

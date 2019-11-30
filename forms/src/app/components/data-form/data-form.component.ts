@@ -16,12 +16,22 @@ export class DataFormComponent implements OnInit {
     private http: HttpClient
     ) { }
 
-  ngOnInit() {
+  ngOnInit():void {
 
-   this.formulario = new FormGroup({
-     name: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(30)]),
-     email: new FormControl(null, [Validators.required, Validators.email])
-   });
+  this.formulario = new FormGroup({
+    name: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(30)]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
+
+    endereco: new FormGroup({
+      cep: new FormControl(null, Validators.required),
+      numero: new FormControl(null, Validators.required),
+      complemento: new FormControl(null),
+      rua: new FormControl(null, Validators.required),
+      bairro: new FormControl(null, Validators.required),
+      cidade: new FormControl(null, Validators.required),
+      estado: new FormControl(null, Validators.required)
+    })
+  });
 
     //Segunda forma de escrever o código acima
     // this.formulario = this.formBuilder.group({
@@ -32,15 +42,37 @@ export class DataFormComponent implements OnInit {
 
   onSubmit(){
     //Mostra dados no console
-    console.log(this.formulario)
+    console.log(`Dados do formulário sendo enviados ${this.formulario}`)
       //AJAX
       this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
       .pipe(map(res => res))
       .subscribe(dados => {
         this.formulario.reset();
+        console.log("Formulario Enviado com sucesso")
       },
         (error: any) => alert(error.message)
       );
+    }
+
+    consultaCep(valorDoCampo){
+      this.http.get(`https://viacep.com.br/ws/${valorDoCampo}/json`)
+      .pipe(map(respostaDoServer => respostaDoServer))
+      .subscribe(dadosDoServidor => {
+        this.populaDados(dadosDoServidor);
+      })
+    }
+
+    populaDados(dados){
+      this.formulario.patchValue({
+        endereco: {
+          cep: dados.cep,
+          complemento: dados.complemento,
+          rua: dados.logradouro,
+          bairro: dados.bairro,
+          cidade: dados.localidade,
+          estado: dados.uf
+        }
+      })
     }
 
     resetarForm(){
@@ -48,12 +80,18 @@ export class DataFormComponent implements OnInit {
     }
 
     verificaValidTouched(campo){ //RECEBE O NOME DO CAMPO
+
+      const input = this.formulario.get(campo)
+
       //O get do formulario já retorna as informações baseado no nome do campo do formulário
-      return !this.formulario.get(campo).valid && this.formulario.get(campo).touched && !this.formulario.get(campo).pristine
+      if(input.value === null && input.touched){
+        return true
+      }
+      return !input.valid && input.dirty
+
     }
 
     verificaEmailValido(campo){
-      console.log(this.formulario)
       if(this.formulario.get(campo).errors){
         return this.formulario.get(campo).errors.email
       }
