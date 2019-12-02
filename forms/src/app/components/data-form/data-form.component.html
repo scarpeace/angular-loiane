@@ -15,8 +15,8 @@
           formControlName="name"
           required
         />
+        <app-form-error-message [mostrarErro]="verificaValidTouched('name')" msgErro="Nome é Obrigatório"></app-form-error-message>
       </div>
-      <app-form-error-message [mostrarErro]="verificaValidTouched('name')" msgErro="Nome é Obrigatório"></app-form-error-message>
     </div>
 
     <!-- Email -->
@@ -33,14 +33,16 @@
             formControlName="email"
             required
           />
-        </div>
         <app-form-error-message [mostrarErro]="verificaValidTouched('email')" msgErro="Email é Obrigatório"></app-form-error-message>
         <app-form-error-message [mostrarErro]="verificaEmailValido('email')" msgErro="Email Invalido"></app-form-error-message>
+        </div>
+
 
       </div>
 
     <!-- Endereço -->
       <div class="col-sm-12" formGroupName="endereco">
+
         <div class="form-row" >
 
           <div class="form-group col-md-3">
@@ -55,22 +57,19 @@
             />
           </div>
 
-
-
           <div class="form-group col-md-3">
-            <label for="numero" class="control-label">Numero</label>
-            <input
-              type="text"
-              class="form-control"
-              id="numero"
-              formControlName="numero"
-              required
-            />
-            <app-form-error-message [mostrarErro]="verificaValidTouched('endereco.numero')" msgErro="Numero é Obrigatório"></app-form-error-message>
-
+              <label for="numero" class="control-label">Numero</label>
+              <input
+                type="text"
+                class="form-control"
+                id="numero"
+                formControlName="numero"
+                required
+              />
+              <app-form-error-message [mostrarErro]="verificaValidTouched('endereco.numero')" msgErro="Numero é Obrigatório"></app-form-error-message>
           </div>
 
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-6">
             <label for="complemento" class="control-label">Complemento</label>
             <input
               type="text"
@@ -80,7 +79,11 @@
             />
           </div>
 
-        <div class="form-group col-md-3">
+
+      </div> <!-- Final da Primeira Row-->
+
+      <!-- Row da Rua -->
+      <div class="form-group">
           <label for="rua" class="control-label">Rua</label>
           <input
             type="text"
@@ -88,13 +91,12 @@
             id="rua"
             formControlName="rua"
           />
+          <app-form-error-message [mostrarErro]="verificaValidTouched('endereco.rua')" msgErro="Rua é Obrigatório"></app-form-error-message>
         </div>
-        <app-form-error-message [mostrarErro]="verificaValidTouched('endereco.rua')" msgErro="Rua é Obrigatório"></app-form-error-message>
 
-      </div> <!-- Final da Primeira Row-->
 
         <div class="form-row">
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-7">
             <label for="bairro" class="control-label">Bairro</label>
             <input
               type="text"
@@ -103,7 +105,6 @@
               formControlName="bairro"
             />
             <app-form-error-message [mostrarErro]="verificaValidTouched('endereco.bairro')" msgErro="Bairro é Obrigatório"></app-form-error-message>
-
           </div>
 
           <div class="form-group col-md-3">
@@ -118,7 +119,7 @@
 
           </div>
 
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-2">
             <label for="estado" class="control-label">Estado</label>
             <input
               type="text"
@@ -131,6 +132,7 @@
 
 
         </div> <!-- Final da Segunda Row-->
+
       </div> <!-- Final da Div Endereço-->
 
       <div class="col-sm-6 mt-3">
