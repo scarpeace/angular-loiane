@@ -25,6 +25,7 @@ export class DataFormComponent implements OnInit {
   cargos: Object[];
   tecnologias: Object[];
   newsletterOp: any[];
+  framewoks = ['Angular', 'React', "Vue", "Sencha"]
 
   constructor(private http: HttpClient, private dropDownService : DropdownService, private cepService : ConsultaCepService) {
     
@@ -61,7 +62,9 @@ export class DataFormComponent implements OnInit {
       }),
       cargo: new FormControl(),
       tecnologia: new FormControl(),
-      newsletter: new FormControl('s')
+      newsletter: new FormControl('s'),
+      termos: new FormControl(null, Validators.pattern('true')),
+      frameworks: new FormControl(null)
     });
     //Segunda forma de escrever o código acima
     // this.formulario = this.formBuilder.group({

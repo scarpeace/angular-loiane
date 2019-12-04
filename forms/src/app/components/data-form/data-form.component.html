@@ -128,7 +128,7 @@
 
         </div> <!-- Final da Segunda Row-->
 
-      </div> <!-- Final da Div Endereço-->
+      </div> 
 
       <!-- Cargo Tecnologia e Newsletter -->
       <div class="form-row">
@@ -156,10 +156,33 @@
               </div>
             </div>
           </div>
-
       </div>
 
-      
+      <!-- Termos e Serviços / Frameworks -->
+    <div class="form-row">
+      <div class="form-group">
+        <div class="col-md-6">
+          <div class="checkbox " [ngClass]="aplicaCssErro('termos')">
+            <label for="checkbox-inline">
+              <input class="checkbox-inline" type="checkbox" formControlName="termos"> Aceito os termos
+            </label>
+            <app-form-error-message [mostrarErro]="verificaValidTouched('termos')" msgErro="Você precisa aceitar os termos"></app-form-error-message>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-6">
+          <div class="checkbox" [ngClass]="aplicaCssErro('frameworks')">
+            <div class="checkbox col-sm-3" *ngFor="let framwork of frameworks" id="framweworks">
+              <label for="frameworks"> Frameworks
+                <input class="frameworks" type="checkbox" formControlName="frameworks"/>
+              </label>    
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
 
       <!-- Botões -->
       <div class="col-sm-6 mt-3">
