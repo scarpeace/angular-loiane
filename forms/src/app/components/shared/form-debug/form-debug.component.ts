@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Type } from '@angular/core';
 
 @Component({
   selector: 'app-form-debug',
@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class FormDebugComponent implements OnInit {
 
   @Input() form;
+  static FormErrorComponent: any[] | Type<any>;
 
   constructor() { }
 
