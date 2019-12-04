@@ -1,24 +1,43 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
   FormBuilder,
   Validators
-} from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
+} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { DropdownService } from '../shared/services/dropdown.service';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
+import { EstadoBr } from '../shared/models/estado-br';
 
 @Component({
-  selector: "app-data-form",
-  templateUrl: "./data-form.component.html",
-  styleUrls: ["./data-form.component.css"]
+  selector: 'app-data-form',
+  templateUrl: './data-form.component.html',
+  styleUrls: ['./data-form.component.css']
 })
 export class DataFormComponent implements OnInit {
+  
   formulario: FormGroup;
+  // estados: EstadoBr[];
+  estados: Observable<EstadoBr[]>;
+  cargos: Object[];
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(private http: HttpClient, private dropDownService : DropdownService, private cepService : ConsultaCepService) {
+    
+  }
 
   ngOnInit(): void {
+
+    this.cargos = this.dropDownService.getCargos();
+
+    // Só dá pra ser assim quando o valor lá no HTML tem um pipe de ASYNC e a variável tá tipada ali em cima
+    this.estados = this.dropDownService.getEstadosBR();
+
+    // this.dropDownService.getEstadosBR()
+    // .subscribe(dados => {this.estados = dados, console.log(dados) });
+    
     this.formulario = new FormGroup({
       name: new FormControl(null, [
         Validators.required,
@@ -35,14 +54,19 @@ export class DataFormComponent implements OnInit {
         bairro: new FormControl(null, Validators.required),
         cidade: new FormControl(null, Validators.required),
         estado: new FormControl(null, Validators.required)
-      })
+      }),
+      cargo: new FormControl()
     });
-
     //Segunda forma de escrever o código acima
     // this.formulario = this.formBuilder.group({
     //   nome: [null],
     //   email: [null]
     // })
+  }
+
+  consultaCep(){
+    const cep = this.formulario.get('endereco.cep').value
+    this.cepService.consultaCep(cep).subscribe(dados => this.populaDados(dados))
   }
 
   onSubmit() {
@@ -51,23 +75,21 @@ export class DataFormComponent implements OnInit {
 
     //AJAX
     if(this.formulario.valid){
-      var cep = cep.replace(/\D/g, "");
+      var cep = cep.replace(/\D/g, '');
 
-      if (cep != "") {
+      if (cep != '') {
         //Expressão regular para validar o CEP.
         var validacep = /^[0-9]{8}$/;
 
         if (validacep.test(cep)) {
           this.http
             .post(
-              "https://httpbin.org/post",
+              'https://httpbin.org/post',
               JSON.stringify(this.formulario.value)
-            )
-            .pipe(map(res => res))
-            .subscribe(
+            )            .subscribe(
               () => {
                 this.formulario.reset();
-                console.log("Formulario Enviado com sucesso");
+                console.log('Formulario Enviado com sucesso');
               },
               (error: any) => alert(error.message)
             );
@@ -76,7 +98,7 @@ export class DataFormComponent implements OnInit {
     }else{
 
       //Aqui faz as validações do campo e marcam ele com a classe CSS com a função markAsDirty (markAsTouched)
-      console.log("Formulario inválido: ")
+      console.log('Formulario inválido: ')
       console.log(this.formulario.controls)
     }
   }
@@ -92,21 +114,7 @@ export class DataFormComponent implements OnInit {
     })
   }
 
-  consultaCep() {
-    const valorDoCampo = this.formulario.get('endereco.cep').value
 
-    if (valorDoCampo !== null) {
-      this.http
-        .get(`https://viacep.com.br/ws/${valorDoCampo}/json`)
-        .pipe(map(respostaDoServer => respostaDoServer))
-        .subscribe(
-          dadosDoServidor => {
-            this.populaDados(dadosDoServidor);
-          },
-          (error: any) => console.log(error)
-        );
-    }
-  }
 
   populaDados(dados) {
     this.formulario.patchValue({
@@ -142,9 +150,19 @@ export class DataFormComponent implements OnInit {
 
   aplicaCssErro(campo) {
     if (this.verificaValidTouched(campo)) {
-      return "is-invalid";
+      return 'is-invalid';
     } else if (!this.formulario.get(campo).pristine) {
-      return "is-valid";
+      return 'is-valid';
     }
+  }
+
+  compararCargos(obj1, obj2){
+      return obj1 && obj2 ? obj1.nome === obj2.nome : obj1.nivel === obj2.nivel;
+  
+  }
+
+  setaCargo(){
+    const cargo = {nome: "Dev", nivel:'Junior', desc:'Dev Junior'};
+    this.formulario.get('cargo').setValue(cargo);
   }
 }
