@@ -30,5 +30,12 @@ export class DropdownService {
       {nome: 'Ruby', desc:'Tecnologia Ruby'},
     ]
   }
+
+  getNewsletter(){
+    return [
+      {valor: 's', desc: 'Sim'},
+      {valor: 'n', desc: 'Não'}
+    ]
+  }
   }
 

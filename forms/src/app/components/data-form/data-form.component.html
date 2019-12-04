@@ -130,6 +130,7 @@
 
       </div> <!-- Final da Div Endereço-->
 
+      <!-- Cargo Tecnologia e Newsletter -->
       <div class="form-row">
         <div class="form-group col-sm-6">
           <label class="control-label" for="cargo">Cargo</label>
@@ -143,6 +144,17 @@
           <select multiple formControlName="tecnologia" class="form-control" id="tecnologia" >
             <option [id]="tecnologia.sigla" *ngFor="let tecnologia of tecnologias" [value]="tecnologia.desc">{{tecnologia.nome}}</option>
           </select>
+        </div>
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label class="control-label" for="tecnologia">Tecnologia</label>
+        <div id="newsletter" class="row">
+          <div class="col-sm-4" *ngFor="let option of newsletterOp">
+            <label for="radio-inline" >
+              <input type="radio" [value]="option.valor" fromControlName="newsletter"/> {{ option.desc }}
+            </label>
+          </div>
         </div>
       </div>
 

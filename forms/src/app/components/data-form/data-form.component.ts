@@ -24,6 +24,7 @@ export class DataFormComponent implements OnInit {
   estados: Observable<EstadoBr[]>;
   cargos: Object[];
   tecnologias: Object[];
+  newsletterOp: Object[];
 
   constructor(private http: HttpClient, private dropDownService : DropdownService, private cepService : ConsultaCepService) {
     
@@ -32,7 +33,8 @@ export class DataFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.cargos = this.dropDownService.getCargos();
-    this.tecnologias = this.dropDownService.getTecnologias()
+    this.tecnologias = this.dropDownService.getTecnologias();
+    this.newsletterOp = this.dropDownService.getNewsletter();
 
     // Só dá pra ser assim quando o valor lá no HTML tem um pipe de ASYNC e a variável tá tipada ali em cima
     this.estados = this.dropDownService.getEstadosBR();
@@ -58,7 +60,8 @@ export class DataFormComponent implements OnInit {
         estado: new FormControl(null, Validators.required)
       }),
       cargo: new FormControl(),
-      tecnologia: new FormControl()
+      tecnologia: new FormControl(),
+      newsletter: new FormControl('s')
     });
     //Segunda forma de escrever o código acima
     // this.formulario = this.formBuilder.group({
