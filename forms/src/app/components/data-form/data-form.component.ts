@@ -24,7 +24,7 @@ export class DataFormComponent implements OnInit {
   estados: Observable<EstadoBr[]>;
   cargos: Object[];
   tecnologias: Object[];
-  newsletterOp: Object[];
+  newsletterOp: any[];
 
   constructor(private http: HttpClient, private dropDownService : DropdownService, private cepService : ConsultaCepService) {
     
