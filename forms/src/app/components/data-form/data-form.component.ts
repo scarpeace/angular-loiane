@@ -23,6 +23,7 @@ export class DataFormComponent implements OnInit {
   // estados: EstadoBr[];
   estados: Observable<EstadoBr[]>;
   cargos: Object[];
+  tecnologias: Object[];
 
   constructor(private http: HttpClient, private dropDownService : DropdownService, private cepService : ConsultaCepService) {
     
@@ -31,6 +32,7 @@ export class DataFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.cargos = this.dropDownService.getCargos();
+    this.tecnologias = this.dropDownService.getTecnologias()
 
     // Só dá pra ser assim quando o valor lá no HTML tem um pipe de ASYNC e a variável tá tipada ali em cima
     this.estados = this.dropDownService.getEstadosBR();
@@ -55,7 +57,8 @@ export class DataFormComponent implements OnInit {
         cidade: new FormControl(null, Validators.required),
         estado: new FormControl(null, Validators.required)
       }),
-      cargo: new FormControl()
+      cargo: new FormControl(),
+      tecnologia: new FormControl()
     });
     //Segunda forma de escrever o código acima
     // this.formulario = this.formBuilder.group({
@@ -71,7 +74,6 @@ export class DataFormComponent implements OnInit {
 
   onSubmit() {
     //Mostra dados no console
-    console.log(`Dados do formulário sendo enviados ${this.formulario}`);
 
     //AJAX
     if(this.formulario.valid){
@@ -95,11 +97,6 @@ export class DataFormComponent implements OnInit {
             );
         }
       }
-    }else{
-
-      //Aqui faz as validações do campo e marcam ele com a classe CSS com a função markAsDirty (markAsTouched)
-      console.log('Formulario inválido: ')
-      console.log(this.formulario.controls)
     }
   }
 
@@ -114,8 +111,6 @@ export class DataFormComponent implements OnInit {
     })
   }
 
-
-
   populaDados(dados) {
     this.formulario.patchValue({
       endereco: {
@@ -128,11 +123,13 @@ export class DataFormComponent implements OnInit {
       }
     });
   }
-
   resetarForm() {
     this.formulario.reset();
   }
 
+ 
+
+  // VALIDAÇÃO E CSS
   verificaValidTouched(campo) {
     //RECEBE O NOME DO CAMPO
     const input = this.formulario.get(campo);
@@ -141,13 +138,11 @@ export class DataFormComponent implements OnInit {
     return input.value === null && (input.touched || input.dirty)
 
   }
-
   verificaEmailValido(campo) {
     if (this.formulario.get(campo).errors) {
       return this.formulario.get(campo).errors.email;
     }
   }
-
   aplicaCssErro(campo) {
     if (this.verificaValidTouched(campo)) {
       return 'is-invalid';
@@ -156,13 +151,14 @@ export class DataFormComponent implements OnInit {
     }
   }
 
-  compararCargos(obj1, obj2){
-      return obj1 && obj2 ? obj1.nome === obj2.nome : obj1.nivel === obj2.nivel;
-  
-  }
-
+  // CARGOS
   setaCargo(){
     const cargo = {nome: "Dev", nivel:'Junior', desc:'Dev Junior'};
     this.formulario.get('cargo').setValue(cargo);
+  }
+
+  // TECNOLOGIAS
+  setTecnologias(){
+    this.formulario.get('tecnologia').setValue(['Java','JavasScript',"Ruby"])
   }
 }

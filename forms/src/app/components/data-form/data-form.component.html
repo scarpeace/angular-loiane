@@ -130,12 +130,21 @@
 
       </div> <!-- Final da Div Endereço-->
 
-      <div class="form-group col-sm-12">
+      <div class="form-row">
+        <div class="form-group col-sm-6">
           <label class="control-label" for="cargo">Cargo</label>
-          <select formControlName="cargo" class="form-control" id="cargo" [compareWith]="comparaCargos()" >
+          <select formControlName="cargo" class="form-control" id="cargo" >
             <option [id]="cargo.sigla" *ngFor="let cargo of cargos" [ngValue]="cargo">{{cargo.desc}}</option>
           </select>
         </div>
+
+        <div class="form-group col-sm-6">
+          <label class="control-label" for="tecnologia">Tecnologia</label>
+          <select multiple formControlName="tecnologia" class="form-control" id="tecnologia" >
+            <option [id]="tecnologia.sigla" *ngFor="let tecnologia of tecnologias" [value]="tecnologia.desc">{{tecnologia.nome}}</option>
+          </select>
+        </div>
+      </div>
 
       <!-- Botões -->
       <div class="col-sm-6 mt-3">
@@ -149,6 +158,10 @@
         
         <button (click)="setaCargo()"class="btn btn-info ml-4">
           Cargo
+        </button>
+
+        <button (click)="setTecnologias()"class="btn btn-dark ml-4">
+          Tecnologias
         </button>
       </div>
 
