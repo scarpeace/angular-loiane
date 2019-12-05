@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
+  FormArray,
   FormControl,
   FormBuilder,
   Validators
@@ -11,6 +12,7 @@ import { Observable } from 'rxjs';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { EstadoBr } from '../shared/models/estado-br';
+import { FormValidation } from '../shared/form-validation';
 
 @Component({
   selector: 'app-data-form',
@@ -18,17 +20,17 @@ import { EstadoBr } from '../shared/models/estado-br';
   styleUrls: ['./data-form.component.css']
 })
 export class DataFormComponent implements OnInit {
-  
+
   formulario: FormGroup;
   // estados: EstadoBr[];
   estados: Observable<EstadoBr[]>;
   cargos: Object[];
   tecnologias: Object[];
   newsletterOp: any[];
-  framewoks = ['Angular', 'React', "Vue", "Sencha"]
+  frameworks = ['Angular', 'React', "Vue", "Sencha"]
 
-  constructor(private http: HttpClient, private dropDownService : DropdownService, private cepService : ConsultaCepService) {
-    
+  constructor(private http: HttpClient, private dropDownService: DropdownService, private cepService: ConsultaCepService) {
+
   }
 
   ngOnInit(): void {
@@ -42,7 +44,7 @@ export class DataFormComponent implements OnInit {
 
     // this.dropDownService.getEstadosBR()
     // .subscribe(dados => {this.estados = dados, console.log(dados) });
-    
+
     this.formulario = new FormGroup({
       name: new FormControl(null, [
         Validators.required,
@@ -52,7 +54,7 @@ export class DataFormComponent implements OnInit {
       email: new FormControl(null, [Validators.required, Validators.email]),
 
       endereco: new FormGroup({
-        cep: new FormControl(null, Validators.required),
+        cep: new FormControl(null, [Validators.required, FormValidation.cepValidator]),
         numero: new FormControl(null, Validators.required),
         complemento: new FormControl(null),
         rua: new FormControl(null, Validators.required),
@@ -64,8 +66,10 @@ export class DataFormComponent implements OnInit {
       tecnologia: new FormControl(),
       newsletter: new FormControl('s'),
       termos: new FormControl(null, Validators.pattern('true')),
-      frameworks: new FormControl(null)
+      // Lembrar que frameworks é um array de controles, então pra usar ele no HTML tem com ter o index declarado no ngFor
+      frameworks: this.buildFrameworks()
     });
+
     //Segunda forma de escrever o código acima
     // this.formulario = this.formBuilder.group({
     //   nome: [null],
@@ -73,28 +77,35 @@ export class DataFormComponent implements OnInit {
     // })
   }
 
-  consultaCep(){
+  buildFrameworks() {
+    //Essa função seta cada valor do array frameworks como sendo um Form Control,
+    const values = this.frameworks.map(v => new FormControl(false));
+    return new FormArray(values, FormValidation.requiredMinCheckbox(1));
+  }
+
+  consultaCep() {
     const cep = this.formulario.get('endereco.cep').value
     this.cepService.consultaCep(cep).subscribe(dados => this.populaDados(dados))
   }
 
   onSubmit() {
-    //Mostra dados no console
+    
+    let valueSubmit = Object.assign({}, this.formulario.value);
+    valueSubmit = Object.assign(valueSubmit, {
+      frameworks: valueSubmit.frameworks
+      .map((v, i) => v ? this.frameworks[i] : null)
+      .filter(v => v !== null)
+    });
+
+    console.log(valueSubmit);
 
     //AJAX
-    if(this.formulario.valid){
-      var cep = cep.replace(/\D/g, '');
-
-      if (cep != '') {
-        //Expressão regular para validar o CEP.
-        var validacep = /^[0-9]{8}$/;
-
-        if (validacep.test(cep)) {
+    if (this.formulario.valid) {
           this.http
             .post(
               'https://httpbin.org/post',
               JSON.stringify(this.formulario.value)
-            )            .subscribe(
+            ).subscribe(
               () => {
                 this.formulario.reset();
                 console.log('Formulario Enviado com sucesso');
@@ -103,15 +114,14 @@ export class DataFormComponent implements OnInit {
             );
         }
       }
-    }
-  }
+  
 
-  verificarValidacoesForm(formGroup: FormGroup){
-    Object.keys(formGroup.controls).forEach(campo =>{
+  verificarValidacoesForm(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(campo => {
       const controle = formGroup.get(campo);
       controle.markAsDirty();
 
-      if(controle instanceof FormGroup){
+      if (controle instanceof FormGroup) {
         this.verificarValidacoesForm(controle)
       }
     })
@@ -133,7 +143,7 @@ export class DataFormComponent implements OnInit {
     this.formulario.reset();
   }
 
- 
+
 
   // VALIDAÇÃO E CSS
   verificaValidTouched(campo) {
@@ -142,13 +152,21 @@ export class DataFormComponent implements OnInit {
 
     //O get do formulario já retorna as informações baseado no nome do campo do formulário
     return input.value === null && (input.touched || input.dirty)
-
   }
   verificaEmailValido(campo) {
     if (this.formulario.get(campo).errors) {
       return this.formulario.get(campo).errors.email;
     }
   }
+
+  //Ainda não implementei
+  verificaRequired(campo: string){
+    return (
+      this.formulario.get(campo).hasError('required') &&
+      (this.formulario.get(campo).touched || this.formulario.get(campo).dirty)
+    )
+  }
+
   aplicaCssErro(campo) {
     if (this.verificaValidTouched(campo)) {
       return 'is-invalid';
@@ -158,13 +176,13 @@ export class DataFormComponent implements OnInit {
   }
 
   // CARGOS
-  setaCargo(){
-    const cargo = {nome: "Dev", nivel:'Junior', desc:'Dev Junior'};
+  setaCargo() {
+    const cargo = { nome: "Dev", nivel: 'Junior', desc: 'Dev Junior' };
     this.formulario.get('cargo').setValue(cargo);
   }
 
   // TECNOLOGIAS
-  setTecnologias(){
-    this.formulario.get('tecnologia').setValue(['Java','JavasScript',"Ruby"])
+  setTecnologias() {
+    this.formulario.get('tecnologia').setValue(['Java', 'JavasScript', "Ruby"])
   }
 }
