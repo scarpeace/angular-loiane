@@ -1,4 +1,4 @@
-import { FormArray, FormControl } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 export class FormValidation{
 
@@ -29,10 +29,46 @@ export class FormValidation{
 
     const cep = control.value;
     if(cep && cep !== ''){
-      const validacep = /^[0-9]{8}$/;
 
-      return validacep.test(cep) ? null : {cepInvalido: true}
+      return cep ? null : {cepInvalido: true}
     }
     return null;
+  }
+
+  static equalsTo(otherField: string){
+    const validator = (formControl : FormControl) =>{
+      if(otherField == null){
+        throw new Error('É necessário informar um campo')
+      }
+
+      if(!formControl.root || !(<FormGroup>formControl.root).controls){
+        return null
+      }
+      const field = (<FormGroup>formControl.root).get(otherField)
+
+      if(!field){
+        throw new Error('É necessário informar um campo válido')
+      }
+
+      if(field.value !== formControl.value){
+        // TO-DO voltar aqui pra testar com true 
+        return {equalsTo : otherField}
+      }
+      
+      // Pra dizer que o campo está válido
+      return null;
+     }
+    return validator;
+  }
+
+  static getErrorMsg(fieldName : string, validatorName: string, validatorValue?:any){
+    const config ={
+      'required':`${fieldName} é obrigatório`,
+      'minlength': `${fieldName} precisa ter no mínimo ${validatorValue.requiredLength} caracteres  `, 
+      'maxlength': `${fieldName} precisa ter no máximo ${validatorValue.requiredLength} caracteres  `,
+      'cepInvalido': 'Cep inválido',
+
+    }
+    return config[validatorName]
   }
 }
