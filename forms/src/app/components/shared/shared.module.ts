@@ -15,14 +15,14 @@ import { BaseFormComponent } from './base-form/base-form.component';
 
 
 @NgModule({
-  declarations: [FormDebugComponent, ErrorMsgComponent, InputFieldComponent, BaseFormComponent],
+  declarations: [FormDebugComponent, ErrorMsgComponent, InputFieldComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  exports:[FormDebugComponent, ErrorMsgComponent, InputFieldComponent, BaseFormComponent],
+  exports:[FormDebugComponent, ErrorMsgComponent, InputFieldComponent],
   providers: [DropdownService]
 })
 export class SharedModule { }

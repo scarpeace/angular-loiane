@@ -111,7 +111,7 @@ export class DataFormComponent extends BaseFormComponent implements OnInit {
     )
     .subscribe(cidades => this.cidades = cidades)
 
-   }  // final do ngOnInit()
+  }  // final do ngOnInit()
 
   buildFrameworks() {
     //Essa função seta cada valor do array frameworks como sendo um Form Control,
@@ -138,8 +138,7 @@ export class DataFormComponent extends BaseFormComponent implements OnInit {
     this.http.post('https://httpbin.org/post',JSON.stringify(this.formulario.value))
       .subscribe(() => {
       this.formulario.reset();
-      console.log('Formulario Enviado com sucesso');
-      },
+      console.log('Formulario Enviado com sucesso')},
       (error: any) => alert(error.message)
       );
   }

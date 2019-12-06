@@ -3,7 +3,7 @@ import {FormGroup, FormArray} from "@angular/forms"
 
 @Component({
   selector: 'app-base-form',
-  template: '<>',
+  template: '</div></div>',
 })
 export abstract class BaseFormComponent implements OnInit {
 
