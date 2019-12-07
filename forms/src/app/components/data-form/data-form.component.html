@@ -2,18 +2,18 @@
   <div class="jumbotron jumbotron-fluid p-5">
 
     <!-- Nome -->
-    <app-input-field id="name" label="Nome" [control]="formulario.get('name')"></app-input-field>
+    <app-input-field id="name" label="Nome" [control]="formulario.get('name')" formControlName='name'></app-input-field>
 
     <!-- Email -->
-    <app-input-field id="email" label="Email" [control]="formulario.get('email')"></app-input-field>
+    <app-input-field id="email" label="Email" [control]="formulario.get('email')" formControlName='email'></app-input-field>
     <!-- Confirmar Email -->
-    <app-input-field id="confirmarEmail" label="Confirmar Email" [control]="formulario.get('confirmarEmail')"></app-input-field>
+    <app-input-field id="confirmarEmail" label="Confirmar Email" [control]="formulario.get('confirmarEmail')" formControlName='confirmarEmail'></app-input-field>
 
     <!-- Endereço -->
       <div class="col-sm-12" formGroupName="endereco">
 
         <div class="form-row" >
-          <div class="form-group col-md-3">
+          <div class="form-group">
             <label for="cep" class="control-label">CEP</label>
             <input type="text" class="form-control" id="cep" formControlName="cep" required/>
           </div>
@@ -120,9 +120,9 @@
       <!-- Botões -->
       <div class="col-sm-6 mt-3">
         <button type="submit" class="btn btn-primary">Send</button>
-        <button (click)="resetarForm()"class="btn btn-alert ml-4">Reset</button>
-        <button (click)="setaCargo()"class="btn btn-info ml-4">Cargo</button>
-        <button (click)="setTecnologias()"class="btn btn-dark ml-4">Tecnologias</button>
+        <button (click)="resetarForm()"class="btn btn-danger ml-4">Cancelar</button>
+        <!-- <button (click)="setaCargo()"class="btn btn-info ml-4">Cargo</button> -->
+        <!-- <button (click)="setTecnologias()"class="btn btn-dark ml-4">Tecnologias</button> -->
       </div>
 
     </div> 

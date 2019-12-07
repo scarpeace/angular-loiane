@@ -1,6 +1,5 @@
-<div class="mt-3 form-group" ngClass=[classeCss]>
+<div class="form-group" ngClass=[classeCss]>
     <label [attr.for]="id">{{ label }}</label>
     <input [type]="type" class="form-control" [id]="id" [readonly]="!!isReadOnly" [(ngModel)] = "value"/>
     <app-error-msg [control]="control" [label]="label"></app-error-msg>
-    <button (click)="showWhatsHere()"></button>
 </div>
