@@ -1,5 +1,5 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const INPUT_FIELD_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -13,6 +13,7 @@ const INPUT_FIELD_VALUE_ACCESSOR: any = {
   styleUrls: ['./input-field.component.css'],
   providers:[INPUT_FIELD_VALUE_ACCESSOR]
 })
+
 export class InputFieldComponent implements ControlValueAccessor {
   
   @Input() classeCss;
@@ -25,8 +26,9 @@ export class InputFieldComponent implements ControlValueAccessor {
   private innerValue: any;
 
   showWhatsHere(){
-    console.log(this.control.value)
+    console.log(`${this.control.label} : ${this.control.value}`)
   }
+
   get value() {
     return this.innerValue;
   }
@@ -56,6 +58,7 @@ export class InputFieldComponent implements ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void {
     this.isReadOnly = isDisabled;
   }
+
 }
 
 
