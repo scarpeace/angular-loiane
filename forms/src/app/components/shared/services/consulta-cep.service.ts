@@ -17,15 +17,10 @@ export class ConsultaCepService {
     
     //Verifica se campo tem valor informado
     if (cep != null && cep !=="") {
-
-      const validaCep = /^[0-9]{8}$/
-
-      if(validaCep.test(cep)){
        return this.http
         .get(`https://viacep.com.br/ws/${cep}/json`)
-        }
-          (error: any) => console.log(error)
     }
   }
-  }
+  
+}
 

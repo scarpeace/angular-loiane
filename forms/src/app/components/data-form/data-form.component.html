@@ -1,84 +1,26 @@
-<form class="form-horizontal m-4 p-4" (ngSubmit)="onSubmit()" [formGroup]="formulario" autocomplete="off">
+<form class="form-horizontal m-4 p-4" (ngSubmit)="onSubmit()" [formGroup]="formulario" autocomplete="noTks">
   <div class="jumbotron jumbotron-fluid p-5">
 
     <!-- Nome -->
-    <div class="mt-3 form-group">
-      <div class="col-sm-12">
-        <label for="name">Name</label>
-      </div>
-      <div class="col-sm-12">
-        <input
-          [ngClass]="aplicaCssErro('name')"
-          type="text"
-          class="form-control"
-          id="name"
-          formControlName="name"
-          required
-        />
-        <app-form-error-message [mostrarErro]="verificaValidTouched('name')" msgErro="Nome é Obrigatório"></app-form-error-message>
-      </div>
-    </div>
+    <app-input-field id="name" label="Nome" [control]="formulario.get('name')"></app-input-field>
 
     <!-- Email -->
-      <div class="form-group mt-3">
-        <div class="col-sm-12">
-          <label for="email">Email</label>
-        </div>
-        <div class="col-sm-12">
-          <input
-            class="form-control"
-            [ngClass]="aplicaCssErro('email')"
-            type="text"
-            id="email"
-            formControlName="email"
-            required
-          />
-        <app-form-error-message [mostrarErro]="verificaValidTouched('email')" msgErro="Email é Obrigatório"></app-form-error-message>
-        <app-form-error-message [mostrarErro]="verificaEmailValido('email')" msgErro="Email Invalido"></app-form-error-message>
-        </div>
-
-
-      </div>
+    <app-input-field id="email" label="Email" [control]="formulario.get('email')"></app-input-field>
+    <!-- Confirmar Email -->
+    <app-input-field id="confirmarEmail" label="Confirmar Email" [control]="formulario.get('confirmarEmail')"></app-input-field>
 
     <!-- Endereço -->
       <div class="col-sm-12" formGroupName="endereco">
 
         <div class="form-row" >
-
           <div class="form-group col-md-3">
             <label for="cep" class="control-label">CEP</label>
-            <input
-              type="text"
-              class="form-control"
-              id="cep"
-              formControlName="cep"
-              (blur) = "consultaCep($event.target.value)"
-              required
-            />
+            <input type="text" class="form-control" id="cep" formControlName="cep" required/>
           </div>
-
-          <div class="form-group col-md-3">
-              <label for="numero" class="control-label">Numero</label>
-              <input
-                type="text"
-                class="form-control"
-                id="numero"
-                formControlName="numero"
-                required
-              />
-              <app-form-error-message [mostrarErro]="verificaValidTouched('endereco.numero')" msgErro="Numero é Obrigatório"></app-form-error-message>
-          </div>
-
-          <div class="form-group col-md-6">
-            <label for="complemento" class="control-label">Complemento</label>
-            <input
-              type="text"
-              class="form-control"
-              id="complemento"
-              formControlName="complemento"
-            />
-          </div>
-
+          <!-- Número -->
+          <app-input-field id="numero" label="Número" [control]="formulario.get('endereco.numero')"></app-input-field>
+          <!-- Complemento -->
+          <app-input-field id="complemento" label="Complemento" [control]="formulario.get('endereco.complemento')"></app-input-field>
 
       </div> <!-- Final da Primeira Row-->
 
@@ -91,8 +33,7 @@
             id="rua"
             formControlName="rua"
           />
-          <app-form-error-message [mostrarErro]="verificaValidTouched('endereco.rua')" msgErro="Rua é Obrigatório"></app-form-error-message>
-        </div>
+      </div>
 
         <!-- Segunda row de endereço -->
         <div class="form-row">
@@ -104,33 +45,27 @@
               id="bairro"
               formControlName="bairro"
             />
-            <app-form-error-message [mostrarErro]="verificaValidTouched('endereco.bairro')" msgErro="Bairro é Obrigatório"></app-form-error-message>
           </div>
 
           <div class="form-group col-md-2">
             <label class="control-label" for="estado">Estado</label>
             <select formControlName="estado" class="form-control" id="estado" >
-              <option *ngFor="let estado of estados | async" [value]="estado.sigla">{{estado.nome}}</option>
+              <option *ngFor="let estado of estados" [value]="estado.sigla">{{estado.nome}}</option>
             </select>
-            <app-form-error-message [mostrarErro]="verificaValidTouched('endereco.estado')" msgErro="Estado é Obrigatório"></app-form-error-message>
           </div>
 
-          <div class="form-group col-md-3">
-              <label for="cidade" class="control-label">Cidade</label>
-              <input
-                type="text"
-                class="form-control"
-                id="cidade"
-                formControlName="cidade"
-              />
-              <app-form-error-message [mostrarErro]="verificaValidTouched('endereco.cidade')" msgErro="Cidade é Obrigatório"></app-form-error-message>
-            </div>
+          <div class="form-group col-md-2">
+            <label class="control-label" for="cidade">Cidade</label>
+            <select formControlName="cidade" class="form-control" id="cidade" >
+              <option *ngFor="let cidade of cidades" [value]="cidade.nome">{{cidade .nome}}</option>
+            </select>
+          </div>
 
         </div> <!-- Final da Segunda Row-->
 
       </div> 
 
-      <!-- Cargo Tecnologia e Newsletter -->
+      <!-- Cargo,Tecnologia e Newsletter -->
       <div class="form-row">
         <div class="form-group col-sm-4">
           <label class="control-label" for="cargo">Cargo</label>
@@ -160,51 +95,37 @@
 
       <!-- Termos e Serviços / Frameworks -->
     <div class="form-row">
-      <div class="form-group">
-        <div class="col-md-6">
-          <div class="checkbox " [ngClass]="aplicaCssErro('termos')">
+      <div class="col-md-6">  
+        <div class="form-group">
+          <div class="checkbox">
             <label for="checkbox-inline">
               <input class="checkbox-inline" type="checkbox" formControlName="termos"> Aceito os termos
             </label>
-            <app-form-error-message [mostrarErro]="verificaValidTouched('termos')" msgErro="Você precisa aceitar os termos"></app-form-error-message>
           </div>
         </div>
       </div>
 
-      <div class="form-group">
-        <div class="col-md-6">
-          <div class="checkbox" [ngClass]="aplicaCssErro('frameworks')">
-            <div class="checkbox col-sm-3" *ngFor="let framwork of frameworks" id="framweworks">
-              <label for="frameworks"> Frameworks
-                <input class="frameworks" type="checkbox" formControlName="frameworks"/>
-              </label>    
-            </div>  
+      <div class="col-md-6">
+        <label for="frameworks"> Frameworks </label>
+          <div id="frameworks" class="row">
+            <div formArrayName="frameworks" 
+            *ngFor="let item of formulario.get('frameworks').controls; let i=index"  
+            class="checkbox col-sm-3" id="frameworks">              
+              <input type="checkbox" formControlName="{{i}}"/>{{ frameworks[i] }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
       <!-- Botões -->
       <div class="col-sm-6 mt-3">
-        <button type="submit" class="btn btn-primary">
-          Send
-        </button>
-
-        <button (click)="resetarForm()"class="btn btn-alert ml-4">
-          Reset
-        </button>
-        
-        <button (click)="setaCargo()"class="btn btn-info ml-4">
-          Cargo
-        </button>
-
-        <button (click)="setTecnologias()"class="btn btn-dark ml-4">
-          Tecnologias
-        </button>
+        <button type="submit" class="btn btn-primary">Send</button>
+        <button (click)="resetarForm()"class="btn btn-alert ml-4">Reset</button>
+        <button (click)="setaCargo()"class="btn btn-info ml-4">Cargo</button>
+        <button (click)="setTecnologias()"class="btn btn-dark ml-4">Tecnologias</button>
       </div>
 
     </div> 
-
 </form>
 
 <app-form-debug [form]="formulario"></app-form-debug>
