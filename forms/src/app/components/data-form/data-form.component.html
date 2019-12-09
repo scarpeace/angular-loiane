@@ -10,17 +10,17 @@
     <app-input-field id="confirmarEmail" label="Confirmar Email" [control]="formulario.get('confirmarEmail')" formControlName='confirmarEmail'></app-input-field>
 
     <!-- Endereço -->
-      <div class="col-sm-12" formGroupName="endereco">
+      <div class="" formGroupName="endereco">
 
         <div class="form-row" >
-          <div class="form-group">
+          <div class="form-group col-md-4">
             <label for="cep" class="control-label">CEP</label>
             <input type="text" class="form-control" id="cep" formControlName="cep" required/>
           </div>
           <!-- Número -->
-          <app-input-field id="numero" label="Número" [control]="formulario.get('endereco.numero')"></app-input-field>
+          <app-input-field id="numero" class="col-md-2" label="Número" [control]="formulario.get('endereco.numero')"></app-input-field>
           <!-- Complemento -->
-          <app-input-field id="complemento" label="Complemento" [control]="formulario.get('endereco.complemento')"></app-input-field>
+          <app-input-field id="complemento" class="col-md-6" label="Complemento" [control]="formulario.get('endereco.complemento')"></app-input-field>
 
       </div> <!-- Final da Primeira Row-->
 
@@ -54,7 +54,7 @@
             </select>
           </div>
 
-          <div class="form-group col-md-2">
+          <div class="form-group col-md-3">
             <label class="control-label" for="cidade">Cidade</label>
             <select formControlName="cidade" class="form-control" id="cidade" >
               <option *ngFor="let cidade of cidades" [value]="cidade.nome">{{cidade .nome}}</option>
@@ -66,7 +66,7 @@
       </div> 
 
       <!-- Cargo,Tecnologia e Newsletter -->
-      <div class="form-row">
+      <div class="form-row justify-content-between">
         <div class="form-group col-sm-4">
           <label class="control-label" for="cargo">Cargo</label>
           <select formControlName="cargo" class="form-control" id="cargo" >
@@ -74,12 +74,12 @@
           </select>
         </div>
 
-        <div class="form-group col-sm-4">
+        <!-- <div class="form-group col-sm-4">
           <label class="control-label" for="tecnologia">Tecnologia</label>
           <select multiple formControlName="tecnologia" class="form-control" id="tecnologia" >
             <option [id]="tecnologia.sigla" *ngFor="let tecnologia of tecnologias" [value]="tecnologia.desc">{{tecnologia.nome}}</option>
           </select>
-        </div>
+        </div> -->
 
         <div class="form-group col-sm-4">
             <label class="control-label" for="newsletter">Newsletter</label>
@@ -94,8 +94,8 @@
       </div>
 
       <!-- Termos e Serviços / Frameworks -->
-    <div class="form-row">
-      <div class="col-md-6">  
+    <div class="form-row" >
+      <div class="col-md-6 mt-3">  
         <div class="form-group">
           <div class="checkbox">
             <label for="checkbox-inline">
