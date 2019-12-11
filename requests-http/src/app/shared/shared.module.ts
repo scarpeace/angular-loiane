@@ -7,12 +7,12 @@ import { AlertModalComponent } from './alert-modal/alert-modal.component'
 
 
 @NgModule({
-  declarations: [NavbarComponent, AlertModalComponent],
+  declarations: [AlertModalComponent],
   imports: [
     CommonModule,
     RouterModule
   ],
-  exports: [NavbarComponent, AlertModalComponent],
+  exports: [AlertModalComponent],
   entryComponents: [AlertModalComponent]
 })
 export class SharedModule { }
