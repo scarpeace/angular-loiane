@@ -88,18 +88,6 @@ export class DataFormComponent extends BaseFormComponent implements OnInit {
       frameworks: this.buildFrameworks()
     });
 
-    //Populando o CEP
-    this.formulario.get('endereco.cep').statusChanges
-    .pipe(
-      tap(value=> console.log(`Status do CEP: ${value}`))
-    )
-    .subscribe(status => {
-      if(status === 'VALID'){
-        this.cepService.consultaCep(this.formulario.get("endereco.cep").value)
-        .subscribe(dados => this.populaDados(dados))
-      }
-    })
-
     //Populando a cidade baseado na escolha do cep
     this.formulario.get('endereco.estado').valueChanges
     .pipe(
@@ -117,6 +105,10 @@ export class DataFormComponent extends BaseFormComponent implements OnInit {
     //Essa função seta cada valor do array frameworks como sendo um Form Control,
     const values = this.frameworks.map(v => new FormControl(false));
     return new FormArray(values, FormValidation.requiredMinCheckbox(1));
+  }
+
+  showStatus(control){
+    console.log(control.status)
   }
 
   consultaCep() {

@@ -62,11 +62,14 @@ export class FormValidation{
   }
 
   static getErrorMsg(fieldName : string, validatorName: string, validatorValue?:any){
-    const config ={
+    const config = {
       'required':`${fieldName} é obrigatório`,
       'minlength': `${fieldName} precisa ter no mínimo ${validatorValue.requiredLength} caracteres  `, 
       'maxlength': `${fieldName} precisa ter no máximo ${validatorValue.requiredLength} caracteres  `,
-      'cepInvalido': 'Cep inválido',
+      'cepInvalido': 'Cep inválido.',
+      'emailInvalido': 'Email já cadastrado!',
+      'equalsTo': "Campos não são iguais",
+      'pattern': "Campo inválido"
 
     }
     return config[validatorName]

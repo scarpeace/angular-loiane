@@ -1,8 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import {KeyValueComponent} from "./keyvalue/keyvalue.component"
+import {CursosComponent} from "./cursos/cursos.component"
+import {AlunosComponent} from "./alunos/alunos.component"
 
-const routes: Routes = [];
+
+
+const routes: Routes = [
+  {path:"keyvalue", component: KeyValueComponent},
+  {path:'cursos' , component: CursosComponent},
+  {path: 'alunos', component: AlunosComponent}
+
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

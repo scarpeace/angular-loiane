@@ -4,11 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlunosComponent } from './alunos/alunos.component';
+import { CursosComponent } from './cursos/cursos.component';
+import { KeyvalueComponent } from './keyvalue/keyvalue.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AlunosComponent
+    AlunosComponent,
+    CursosComponent,
+    KeyvalueComponent
   ],
   imports: [
     BrowserModule,

@@ -15,20 +15,25 @@ export class ErrorMsgComponent implements OnInit {
   @Input() control: FormControl
   @Input() label: string;
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit() {
-    
   }
 
-  get errorMessage(){
+  showControl(){
+    console.log(this.control)
+  }
 
-    for(const propertyName in this.control.errors){
-      if(this.control.errors.hasOwnProperty(propertyName) && this.control.touched){
-        return FormValidation.getErrorMsg(this.label, propertyName, this.control.errors[propertyName])
-      }
+  get errorMessage() {
+
+    for (const propertyName in this.control.errors) {
+      if (this.control.errors.hasOwnProperty(propertyName) && (this.control.touched && this.control.pristine)) {
+          const msg = FormValidation.getErrorMsg(this.label, propertyName, this.control.errors[propertyName]); 
+          console.log(msg);
+        }
     }
+
     return null;
   }
-
 }
