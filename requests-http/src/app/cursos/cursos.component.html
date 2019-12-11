@@ -6,11 +6,14 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <h1>Cursos</h1>
-      <button class="btn btn-primary btn-md my-2">Novo Curso</button>
+      <div id="botoesTop">
+        <button class="btn btn-primary btn-md my-2 mr-2">Novo Curso</button>
+        <button class="btn btn-secondary btn-md my-2" (click)="onRefresh()">Refresh</button>
+      </div>  
     </div>
     
     <div class="card-body">
-      <table class="table table-striped table-dark">
+      <table class="table table-striped table-dark" *ngIf="cursos$ | async as cursos; else loading">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -23,6 +26,7 @@
             <td>{{ curso.nome }}</td>
             <td>
               <span class="float-right">
+
                 <button class="btn btn-outline-warning btn-sm mr-2">Atualizar</button>
                 <button class="btn btn-outline-danger btn-sm">Remover</button>
               </span>  
@@ -32,6 +36,18 @@
         </tbody>
       </table>
     </div>
+
+    
+
+    <ng-template #loading>
+      <div *ngIf="error$ | async; else loadingNoError">
+        Erro ao carregar os cursos. Tente novamente mais tarde
+      </div>
+    <ng-template #loadingNoError>
+        <span>Carregando Cursos...</span>
+    </ng-template>
+      
+    </ng-template>
 
    
   </div>

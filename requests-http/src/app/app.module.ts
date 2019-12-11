@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { CursosComponent } from './cursos/cursos.component';
 import {SharedModule} from "./shared/shared.module";
 import { AlunosComponent } from './alunos/alunos.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -20,8 +21,9 @@ import { AlunosComponent } from './alunos/alunos.component';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
+    ModalModule.forRoot(),
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
