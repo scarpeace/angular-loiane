@@ -4,7 +4,7 @@ import { Observable, empty, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { CursosService } from './cursos.service';
-import {AlertModalService} from "../shared/alert-modal.service"
+import {AlertModalService} from "../shared/alert-modal/alert-modal.service"
 
 @Component({
   selector: 'app-cursos',

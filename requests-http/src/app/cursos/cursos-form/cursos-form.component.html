@@ -5,14 +5,14 @@
     <div class="col-sm-12 mb-3">
       <label for="nome">Nome</label>
       <input type="text" class="form-control" id="nome" placeholder="Nome" formControlName="nome" [ngClass]="{'is-invalid' : submitted && hasErrors('nome')}">
-      <div class="invalid-feedback" *ngIf="hasErrors('nome')['required']">
+      <div class="invalid-feedback" *ngIf="hasErrors('nome')?.required">
         Por favor informe um nome para o curso
       </div>
-      <div class="invalid-feedback" *ngIf="hasErrors('nome')['minlength']">
-        O campo precisa ter no mínimo {{hasError('nome')['minlength'].requiredlength}}
+      <div class="invalid-feedback" *ngIf="hasErrors('nome')?.minlength">
+        O campo precisa ter no mínimo {{hasErrors('nome')['minlength'].requiredlength}}
       </div>
-      <div class="invalid-feedback" *ngIf="hasErrors('nome')['maxlength']">
-        O campo precisa ter no máximo {{hasError('nome')['maxlength'].requiredlength}}
+      <div class="invalid-feedback" *ngIf="hasErrors('nome')?.maxlength">
+        O campo precisa ter no máximo {{hasErrors('nome')['maxlength'].requiredlength}}
       </div>
     </div>
   </div>
