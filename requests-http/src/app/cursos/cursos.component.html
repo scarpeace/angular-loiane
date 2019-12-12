@@ -28,7 +28,7 @@
               <span class="float-right">
 
                 <button class="btn btn-outline-warning btn-sm mr-2" (click)="onEdit(curso.id)">Atualizar</button>
-                <button class="btn btn-outline-danger btn-sm">Remover</button>
+                <button class="btn btn-outline-danger btn-sm" (click)="onDelete(curso)">Remover</button>
               </span>  
             </td>
             
@@ -43,13 +43,19 @@
       <div *ngIf="error$ | async; else loadingNoError">
         Erro ao carregar os cursos. Tente novamente mais tarde
       </div>
-    <ng-template #loadingNoError>
-        <span>Carregando Cursos...</span>
-    </ng-template>
-      
+      <ng-template #loadingNoError>
+          <span>Carregando Cursos...</span>
+      </ng-template>
     </ng-template>
 
-   
+    <ng-template #deleteModal>
+      <div class="modal-body text-center">
+        <p>Tem certeza que deseja excluir o registro?</p>
+        <button type="button" class="btn btn-default" (click)="onConfirmDelete()">Sim</button>
+        <button type="button" class="btn btn-primary" (click)="onDeclineDelete()">Não</button>
+      </div>
+    </ng-template>
+
   </div>
 </div>
 

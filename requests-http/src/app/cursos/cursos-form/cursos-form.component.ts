@@ -8,6 +8,7 @@ import {Location} from "@angular/common"
 import { CursosService } from '../cursos.service';
 import { AlertModalService} from "../../shared/alert-modal/alert-modal.service"
 import { map } from 'rxjs/operators';
+import { BsModalRef } from 'ngx-bootstrap/modal/ngx-bootstrap-modal';
 
 @Component({
   selector: 'app-cursos-form',
@@ -18,6 +19,7 @@ export class CursosFormComponent implements OnInit {
 
   form: FormGroup;
   submitted: boolean = false;
+  
 
   constructor(
     private fb: FormBuilder,
@@ -54,30 +56,29 @@ export class CursosFormComponent implements OnInit {
   }
 
   onSubmit(){
+
+    
+    let msgSucess = "Curso criado com sucesso"
+    let msgErro = "Erro ao criar curso"
+    if(this.form.value.id){
+      msgSucess = "Curso atualizado com sucesso"
+      msgErro = "Erro ao atualizar curso"
+    }
+
     this.submitted = true;
     if(this.form.valid){
       
       if(this.form.value.id){
         this.service.save(this.form.value).subscribe(
           sucess => {
-            this.modalService.showAlertSuccess("Registro atualizado com sucesso")
+            this.modalService.showAlertSuccess(msgSucess)
             this.location.back();
           },
-          error => this.modalService.showAlertDanger("Erro ao atualizar registro"),
+          error => this.modalService.showAlertDanger(msgErro),
           //Quando o observable for fechado e completo
           () => console.log('Update completo!')
         )   
-      }else{
-
-    this.service.save(this.form.value).subscribe(
-      sucess => {
-        this.modalService.showAlertSuccess("Registro criado no banco com sucesso!")
-        this.location.back();
-      },
-      error => this.modalService.showAlertDanger("Erro ao criar curso"),
-      //Quando o observable for fechado e completo
-      () => console.log('Create Completo!')
-    )}
+      }
   }
       
   }
