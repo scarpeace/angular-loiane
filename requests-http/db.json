@@ -1,36 +1,16 @@
 {
   "cursos": [
     {
-      "id": 2,
-      "nome": "Java"
-    },
-    {
-      "nome": "ReactJS",
-      "id": 3
-    },
-    {
-      "nome": "Teste",
-      "id": 4
-    },
-    {
-      "nome": "Teste",
-      "id": 5
-    },
-    {
-      "nome": "Material 4",
-      "id": 7
-    },
-    {
-      "nome": "Gustavo",
-      "id": 8
-    },
-    {
       "id": 9,
       "nome": "Material 5"
     },
     {
       "id": 10,
       "nome": "Material 8"
+    },
+    {
+      "id": 11,
+      "nome": "Curso teste"
     }
   ]
 }

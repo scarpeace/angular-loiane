@@ -3,10 +3,10 @@ import { tap, switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {Location} from "@angular/common"
+import { Location } from "@angular/common"
 
 import { CursosService } from '../cursos.service';
-import { AlertModalService} from "../../shared/alert-modal/alert-modal.service"
+import { AlertModalService } from "../../shared/alert-modal/alert-modal.service"
 import { map } from 'rxjs/operators';
 import { BsModalRef } from 'ngx-bootstrap/modal/ngx-bootstrap-modal';
 
@@ -19,15 +19,14 @@ export class CursosFormComponent implements OnInit {
 
   form: FormGroup;
   submitted: boolean = false;
-  
+
 
   constructor(
     private fb: FormBuilder,
     private service: CursosService,
     private modalService: AlertModalService,
-    private location : Location,
-    private route: ActivatedRoute,) 
-    { }
+    private location: Location,
+    private route: ActivatedRoute, ) { }
 
   ngOnInit() {
 
@@ -50,25 +49,22 @@ export class CursosFormComponent implements OnInit {
     const curso = this.route.snapshot.data['curso']
 
     this.form = this.fb.group({
-      id:[curso.id],
+      id: [curso.id],
       nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
     })
   }
 
-  onSubmit(){
-
-    
-    let msgSucess = "Curso criado com sucesso"
-    let msgErro = "Erro ao criar curso"
-    if(this.form.value.id){
-      msgSucess = "Curso atualizado com sucesso"
-      msgErro = "Erro ao atualizar curso"
-    }
+  onSubmit() {
 
     this.submitted = true;
-    if(this.form.valid){
-      
-      if(this.form.value.id){
+    if (this.form.valid) {
+      let msgSucess = "Curso criado com sucesso"
+      let msgErro = "Erro ao criar curso"
+      if (this.form.value.id) {
+        msgSucess = "Curso atualizado com sucesso"
+        msgErro = "Erro ao atualizar curso"
+      }
+     
         this.service.save(this.form.value).subscribe(
           sucess => {
             this.modalService.showAlertSuccess(msgSucess)
@@ -77,18 +73,17 @@ export class CursosFormComponent implements OnInit {
           error => this.modalService.showAlertDanger(msgErro),
           //Quando o observable for fechado e completo
           () => console.log('Update completo!')
-        )   
-      }
-  }
-      
+        )
+    }
+
   }
 
-  onCancel(){
+  onCancel() {
     this.submitted = false;
     this.form.reset();
   }
 
-  hasErrors(field: string){
+  hasErrors(field: string) {
     return this.form.get(field).errors
   }
 

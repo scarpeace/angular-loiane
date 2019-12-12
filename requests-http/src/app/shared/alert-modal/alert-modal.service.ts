@@ -1,3 +1,4 @@
+import { ConfirmModalComponent } from './../confirm-modal/confirm-modal.component';
 import { Injectable } from '@angular/core';
 import {BsModalService} from "ngx-bootstrap/modal"
 
@@ -31,6 +32,22 @@ export class AlertModalService {
 
   showAlertSuccess(message:string){
     this.showAlert(message, AlertTypes.SUCCESS, 3000)
+  }
+
+  showConfirm(titulo: string, message: string, confirmButton?: string, cancelButton?: string){
+    const bsModalRef = this.modalService.show(ConfirmModalComponent);
+
+    (<ConfirmModalComponent>bsModalRef.content).titulo = titulo;
+    (<ConfirmModalComponent>bsModalRef.content).message = message;
+    
+    if(confirmButton){
+      (<ConfirmModalComponent>bsModalRef.content).confirmButton = confirmButton;
+    }
+    if(cancelButton){
+      (<ConfirmModalComponent>bsModalRef.content).cancelButton = cancelButton;
+    }
+
+    return (<ConfirmModalComponent>bsModalRef.content).confirmResult$;
   }
 
 }
