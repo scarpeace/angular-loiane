@@ -26,4 +26,8 @@ export class CursosService {
     //Retona uma resposta HTTP
     return this.http.post(this.API, curso).pipe(take(1))
   }
+
+  getByID(id){
+    return this.http.get(`${this.API}/${id}`).pipe(take(1))
+  }
 }
