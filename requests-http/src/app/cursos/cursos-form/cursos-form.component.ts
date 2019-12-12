@@ -1,3 +1,4 @@
+import { Curso } from './../curso';
 import { tap, switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -23,7 +24,8 @@ export class CursosFormComponent implements OnInit {
     private service: CursosService,
     private modalService: AlertModalService,
     private location : Location,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,) 
+    { }
 
   ngOnInit() {
 
@@ -37,31 +39,47 @@ export class CursosFormComponent implements OnInit {
     //   }
     // })
 
-    this.route.params.pipe(
-      map(params => params['id']),
-      switchMap(id => this.service.getByID(id))
-    )
-    .subscribe(curso=>this.updateForm(curso))
+    // this.route.params.pipe(
+    //   map(params => params['id']),
+    //   switchMap(id => this.service.getByID(id))
+    // )
+    // .subscribe(curso=>this.updateForm(curso))
+
+    const curso = this.route.snapshot.data['curso']
 
     this.form = this.fb.group({
-      id:[null],
-      nome: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
+      id:[curso.id],
+      nome: [curso.nome, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]]
     })
   }
 
   onSubmit(){
     this.submitted = true;
     if(this.form.valid){
-      this.service.create(this.form.value).subscribe(
-        sucess => {
-          this.modalService.showAlertSuccess("Registro criado no banco com sucesso!")
-          this.location.back();
-        },
-        error => this.modalService.showAlertDanger("Erro ao criar curso"),
-        //Quando o observable for fechado e completo
-        () => console.log('Request Completo!')
-      );
-    }
+      
+      if(this.form.value.id){
+        this.service.save(this.form.value).subscribe(
+          sucess => {
+            this.modalService.showAlertSuccess("Registro atualizado com sucesso")
+            this.location.back();
+          },
+          error => this.modalService.showAlertDanger("Erro ao atualizar registro"),
+          //Quando o observable for fechado e completo
+          () => console.log('Update completo!')
+        )   
+      }else{
+
+    this.service.save(this.form.value).subscribe(
+      sucess => {
+        this.modalService.showAlertSuccess("Registro criado no banco com sucesso!")
+        this.location.back();
+      },
+      error => this.modalService.showAlertDanger("Erro ao criar curso"),
+      //Quando o observable for fechado e completo
+      () => console.log('Create Completo!')
+    )}
+  }
+      
   }
 
   onCancel(){
@@ -71,13 +89,6 @@ export class CursosFormComponent implements OnInit {
 
   hasErrors(field: string){
     return this.form.get(field).errors
-  }
-
-  updateForm(curso){
-    this.form.patchValue({
-      id: curso.id,
-      nome: curso.nome
-    })
   }
 
 }
