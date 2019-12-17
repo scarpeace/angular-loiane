@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from "@angular/router"
 
 import { CursosService } from './cursos.service';
 import { AlertModalService } from "../shared/alert-modal/alert-modal.service"
+import { Cursos2Service } from './cursos2.service';
 
 @Component({
   selector: 'app-cursos',
@@ -26,7 +27,7 @@ export class CursosComponent implements OnInit {
   cursoSelecionado: Curso;
 
 
-  constructor(private service: CursosService,
+  constructor(private service: Cursos2Service,
     private alertModalService: AlertModalService,
     private modalService: BsModalService,
     private router: Router,

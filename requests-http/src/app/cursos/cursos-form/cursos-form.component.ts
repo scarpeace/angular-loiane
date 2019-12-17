@@ -9,6 +9,7 @@ import { CursosService } from '../cursos.service';
 import { AlertModalService } from "../../shared/alert-modal/alert-modal.service"
 import { map } from 'rxjs/operators';
 import { BsModalRef } from 'ngx-bootstrap/modal/ngx-bootstrap-modal';
+import { Cursos2Service } from '../cursos2.service';
 
 @Component({
   selector: 'app-cursos-form',
@@ -23,7 +24,7 @@ export class CursosFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: CursosService,
+    private service: Cursos2Service,
     private modalService: AlertModalService,
     private location: Location,
     private route: ActivatedRoute, ) { }
