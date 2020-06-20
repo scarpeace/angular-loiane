@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src='angular.svg' width='50%' height='50%'>
+    <img src='angular.svg' width='30%'>
 </h1>
 
 <h4 align="center">
@@ -13,10 +13,6 @@
 </p>
 
 <br>
-
-<p align="center">
-  <img src='frontend\src\assets\screenshot-github.png'>
-</p>
 
 ## 💻 Course
 
