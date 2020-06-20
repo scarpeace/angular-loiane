@@ -75,4 +75,4 @@ All of the bellow were taught in the course curriculum:
     * Data driven form
 ---
 
-Feito com ♥ by Scarpellini :shipit: 
+Made with ♥ by Scarpellini :shipit: 
