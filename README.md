@@ -25,6 +25,7 @@ Loiane must be the best teacher of all times when it comes to patiently explaini
 </h1>
 ## :rocket: What i've learned
 
+
 All of the bellow were taught in the course curriculum:
 
 1. Data Binding
