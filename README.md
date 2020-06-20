@@ -23,6 +23,7 @@ Loiane must be the best teacher of all times when it comes to patiently explaini
 <h1 align="center">
     <img src='certificate.PNG' width='70%' height='60%'>
 </h1>
+
 ## :rocket: What i've learned
 
 
